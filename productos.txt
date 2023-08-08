@@ -1,1 +1,1 @@
-[]
+[{"title":"Mouse","description":"Mouse Logitec","price":220,"thumbnail":"Sin imagen","code":"MOU124","stock":20,"id":2}]

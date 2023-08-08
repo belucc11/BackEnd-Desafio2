@@ -34,9 +34,10 @@ class ProductManager{
 //Método Get product by ID
 
        async getProductsByID(id){
-            const prod = this.path.find(producto => producto ===id)
-            if (prod){
-                console.log (prod)
+            const products= JSON.parse(await fs.readFile (this.path, "utf-8"))
+            const productoBuscado = products.find(producto => producto.id ===id)
+            if (productoBuscado){
+                console.log (productoBuscado)
             } else {
                 console.log ("Not found")
             }
@@ -90,5 +91,13 @@ class Product {
 
 }
 
-new Product ({title:"arroz", price: "20", id: "5" })
 
+// Inicio de Product Manager y agregar producto
+
+const productManager = new ProductManager
+const product1 = new Product("Laptop", "Laptop Asus", 2000, "Sin imagen", "LAP123", 25)
+const product2 = new Product("Mouse", "Mouse Logitec", 220, "Sin imagen", "MOU124", 20)
+productManager.getProducts();
+productManager.addProduct(product1)
+productManager.addProduct(product2)
+console.log(productManager.getProductsById(2))

@@ -10,11 +10,10 @@ class ProductManager{
 // Método Add Product
 
         async addProduct (product){
-            const dataFromFile = await fs.readFile (this.path, "utf-8")
-            const products = JSON.parse(dataFromFile)
+            let products= JSON.parse(await fs.readFile (this.path, "utf-8"))
 
             if (products.find(producto => producto.id === product.id)){
-                return console.log ("Producto ya agregado")
+                return "Producto ya agregado"
             } else {
                 products.push(product)  
             }
@@ -26,18 +25,18 @@ class ProductManager{
 // Método Get Product
 
         async getProducts () {
-            const products= JSON.parse(await fs.readFile (this.path, "utf-8"))
-            console.log (products)
+            let products= JSON.parse(await fs.readFile (this.path, "utf-8"))
+            return products
         }
 
 
 //Método Get product by ID
 
        async getProductsByID(id){
-            const products= JSON.parse(await fs.readFile (this.path, "utf-8"))
-            const productoBuscado = products.find(producto => producto.id ===id)
+            let products= JSON.parse(await fs.readFile (this.path, 'utf-8'))
+            let productoBuscado = products.find(producto => producto.id ===id)
             if (productoBuscado){
-                console.log (productoBuscado)
+                return productoBuscado
             } else {
                 console.log ("Not found")
             }
@@ -46,8 +45,8 @@ class ProductManager{
 
 // Método Update Product
     async updateProduct (id, { title }) {
-        const products= JSON.parse(await fs.readFile (this.path, "utf-8"))    
-        const indice = products.findIndex(prod => prod.id ===id)
+        let products= JSON.parse(await fs.readFile (this.path, "utf-8"))    
+        let indice = products.findIndex(prod => prod.id ===id)
 
         if (indice != -1){
             products [indice].title = title
@@ -60,8 +59,8 @@ class ProductManager{
 // Método Delete Product
 
     async deleteProduct(id) {
-        const products= JSON.parse(await fs.readFile (this.path, "utf-8"))
-        const prods = products.filter(prod => prod.id !=id)
+        let products= JSON.parse(await fs.readFile (this.path, "utf-8"))
+        let filterOut = products.filter(prod => prod.id !=id)
         await fs.writeFile("./productos.txt", JSON.stringify(prods))
         }
 
@@ -70,24 +69,30 @@ class ProductManager{
  }
     
 class Product {
+    static idIncrement = 0
+
     constructor(title, description, price, thumbnail, code, stock) {
+        Product.idIncrement++
         this.title = title
         this.description = description
         this.price = price
         this.thumbnail = thumbnail
         this.code = code
         this.stock = stock
-        this.id = Product.incrementarID()
+        this.id = Product.idIncrement
     }
 
-    static incrementarID(){
+
+    /* static incrementarID(){
         if(this.idIncrement){
             this.idIncrement++
         } else {
             this.idIncrement = 1
         }
         return this.idIncrement
-    }
+    } */
+
+    
 
 }
 
@@ -97,7 +102,9 @@ class Product {
 const productManager = new ProductManager
 const product1 = new Product("Laptop", "Laptop Asus", 2000, "Sin imagen", "LAP123", 25)
 const product2 = new Product("Mouse", "Mouse Logitec", 220, "Sin imagen", "MOU124", 20)
-productManager.getProducts();
+const product3 = new Product("Teclado", "Teclado Logitec", 230, "Sin imagen", "TEC124", 20)
 productManager.addProduct(product1)
 productManager.addProduct(product2)
-console.log(productManager.getProductsById(2))
+productManager.addProduct(product3)
+productManager.getProducts()
+productManager.getProductsByID(3)

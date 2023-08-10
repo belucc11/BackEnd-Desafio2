@@ -1,1 +1,1 @@
-[{"title":"Mouse","description":"Mouse Logitec","price":220,"thumbnail":"Sin imagen","code":"MOU124","stock":20,"id":2}]
+[{"title":"Mouse","description":"Mouse Logitec","price":220,"thumbnail":"Sin imagen","code":"MOU124","stock":20,"id":2},{"title":"Laptop","description":"Laptop Asus","price":2000,"thumbnail":"Sin imagen","code":"LAP123","stock":25,"id":1},{"title":"Teclado","description":"Teclado Logitec","price":230,"thumbnail":"Sin imagen","code":"TEC124","stock":20,"id":3}]
